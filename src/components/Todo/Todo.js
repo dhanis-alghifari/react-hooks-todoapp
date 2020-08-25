@@ -4,11 +4,23 @@ import TodoList from "../TodoList/TodoList";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { TiEdit } from "react-icons/ti";
 
-function Todo({ todos, completeTodo, removeTodo }) {
+function Todo({ todos, completeTodo, updateTodo, removeTodo }) {
   const [edit, setEdit] = useState({
     id: null,
     value: "",
   });
+
+  const submitUpdate = value => {
+      updateTodo(edit.id, value)
+      setEdit({
+          id: null,
+          value: ''
+      })
+  }
+
+  if (edit.id) {
+      return <TodoForm edit={edit} onSubmit={submitUpdate} />
+  }
 
   return todos.map((todo, index) => (
     <div
